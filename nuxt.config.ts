@@ -11,4 +11,5 @@ export default defineNuxtConfig({
   runtimeConfig: {
     mongoUri: process.env.MONGODB_URI,
   },
+  css: ["~/assets/styles/main.scss"],
 });
