@@ -12,7 +12,6 @@ export const useLaunchStore = defineStore("launchStore", {
     // Fetch launches from the SpaceX API
     async fetchLaunches() {
       try {
-        // Query the SpaceX API with sorting by date in descending order
         const { data } = await axios.post<{ docs: Launch[] }>(
           "https://api.spacexdata.com/v4/launches/query",
           {
@@ -30,7 +29,6 @@ export const useLaunchStore = defineStore("launchStore", {
             },
           }
         );
-
         // Update the state with the fetched and sorted data
         this.launches = data.docs;
       } catch (error) {
@@ -41,7 +39,6 @@ export const useLaunchStore = defineStore("launchStore", {
     // Save a launch to MongoDB
     async saveLaunch(launch: Launch) {
       try {
-        // Send the data in the format expected by the backend
         const response = await axios.post<{
           success: boolean;
           message?: string;
@@ -71,7 +68,7 @@ export const useLaunchStore = defineStore("launchStore", {
         const response = await axios.get("/api/getSavedLaunches");
 
         if (response.data.success) {
-          // Map the retrieved data to match the Launch structure
+          // Map the retrieved data to match the expected structure
           this.savedLaunches = response.data.data.map(
             (launch: {
               _id: string;
@@ -80,9 +77,9 @@ export const useLaunchStore = defineStore("launchStore", {
               launchDate: string;
             }) => ({
               _id: launch._id,
-              flight_number: launch.flightNumber,
-              name: launch.missionName,
-              date_utc: new Date(launch.launchDate).toISOString(),
+              flight_number: launch.flightNumber, // Use flightNumber from MongoDB
+              name: launch.missionName, // Use missionName from MongoDB
+              date_utc: new Date(launch.launchDate).toISOString(), // Convert launchDate to ISO format
             })
           );
         } else {
@@ -90,6 +87,30 @@ export const useLaunchStore = defineStore("launchStore", {
         }
       } catch (error) {
         console.error("Failed to fetch saved launches:", error);
+      }
+    },
+
+    // Delete a launch from MongoDB and update state
+    async deleteLaunch(launchId: string) {
+      try {
+        const response = await axios.delete<{
+          success: boolean;
+          message?: string;
+        }>(`/api/deleteLaunch/${launchId}`);
+
+        if (response.data.success) {
+          // Update the state by filtering out the deleted launch
+          this.savedLaunches = this.savedLaunches.filter(
+            (launch) => launch._id !== launchId
+          );
+        } else {
+          console.error(
+            "Failed to delete the launch:",
+            response.data.message || "Unknown error"
+          );
+        }
+      } catch (error) {
+        console.error("Error deleting launch:", error);
       }
     },
   },

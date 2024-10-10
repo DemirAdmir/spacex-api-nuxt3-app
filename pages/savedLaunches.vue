@@ -1,10 +1,10 @@
 <!-- ~/pages/savedLaunches.vue -->
+<!-- ~/pages/savedLaunches.vue -->
 <template>
   <div>
     <section class="section">
       <div class="container">
         <h1 class="title is-3 mb-5">Saved Launches</h1>
-        <!-- Render the ListView component if saved launches are available, otherwise show a message -->
         <div v-if="savedLaunches.length > 0">
           <ListView
             :launches="savedLaunches"
@@ -24,13 +24,13 @@ import { ref, onMounted, computed } from "vue";
 import { useLaunchStore } from "../stores/launches";
 import type { Launch } from "../interfaces/Launch";
 import ListView from "~/components/ListView.vue";
+import { useToast } from "vue-toastification";
 
 const launchStore = useLaunchStore();
 const loading = ref(false);
-
+const toast = useToast();
 const savedLaunches = computed(() => launchStore.savedLaunches);
 
-// Fetch saved launches from MongoDB when the component is mounted
 onMounted(async () => {
   loading.value = true;
   try {
@@ -42,7 +42,6 @@ onMounted(async () => {
   }
 });
 
-// Delete the selected launch from MongoDB
 const deleteLaunch = async (launch: Launch) => {
   const confirmDelete = confirm(
     `Are you sure you want to delete the launch: ${launch.name}?`
@@ -50,7 +49,15 @@ const deleteLaunch = async (launch: Launch) => {
   if (!confirmDelete) return;
 
   loading.value = true;
-  alert("Launch deleted successfully.");
+  try {
+    await launchStore.deleteLaunch(launch._id as string);
+    toast.success("Launch deleted successfully.");
+  } catch (error) {
+    console.error("Error deleting launch:", error);
+    toast.error("Failed to delete the launch.");
+  } finally {
+    loading.value = false;
+  }
 };
 </script>
 
