@@ -1,22 +1,18 @@
-<!-- ~/components/LaunchTable.vue -->
+<!-- ~/pages/index.vue -->
 <template>
-  <table class="table is-striped is-fullwidth" v-if="launches.length">
-    <thead>
-      <tr>
-        <th>Flight Number</th>
-        <th>Name</th>
-        <th>Date</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="launch in launches" :key="launch.flight_number">
-        <td>{{ launch.flight_number }}</td>
-        <td>{{ launch.name }}</td>
-        <td>{{ new Date(launch.date_utc).toLocaleDateString() }}</td>
-      </tr>
-    </tbody>
-  </table>
-  <p v-else>Loading launches...</p>
+  <div>
+    <!-- Main section displaying the SpaceX launches -->
+    <section class="section">
+      <div class="container">
+        <h1 class="title is-3 mb-5">SpaceX Launches</h1>
+        <!-- Render the ListView component if launches are available, otherwise show a loading message -->
+        <div v-if="launchStore.launches.length > 0">
+          <ListView :launches="launchStore.launches" />
+        </div>
+        <p v-else>Loading launches...</p>
+      </div>
+    </section>
+  </div>
 </template>
 
 <script setup lang="ts">
