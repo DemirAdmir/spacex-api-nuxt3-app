@@ -11,6 +11,7 @@
             :launches="launchStore.launches"
             actionLabel="Save Launch"
             buttonType="is-primary"
+            @actionClick="handleSaveLaunch"
           />
         </div>
         <p v-else>Loading launches...</p>
@@ -22,6 +23,7 @@
 <script setup lang="ts">
 import { useLaunchStore } from "~/stores/launches";
 import { onMounted, computed } from "vue";
+import { useToast } from "vue-toastification";
 
 const launchStore = useLaunchStore();
 
@@ -31,7 +33,21 @@ onMounted(() => {
   }
 });
 
+const toast = useToast();
 const launches = computed(() => launchStore.launches);
+
+// Save the selected launch to MongoDB
+const handleSaveLaunch = async (launch: Launch) => {
+  try {
+    await launchStore.saveLaunch(launch);
+    // alert("Launch saved successfully!");
+    toast.success("Launch saved successfully!");
+  } catch (error) {
+    console.error("Error saving launch:", error);
+    // alert("Failed to save the launch");
+    toast.error("Failed to save the launch");
+  }
+};
 </script>
 
 <style scoped></style>

@@ -4,7 +4,9 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export default defineNitroPlugin(() => {
-  const mongoUri = useRuntimeConfig().mongoUri; // Get MongoDB URI from runtime configuration
+  const mongoUri =
+    useRuntimeConfig().mongoUri ||
+    "mongodb://localhost:27017/spacex-launches-task"; // Get MongoDB URI from runtime configuration
 
   if (!mongoUri) {
     throw new Error("MONGODB_URI is not defined in the environment variables");

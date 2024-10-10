@@ -37,5 +37,32 @@ export const useLaunchStore = defineStore("launchStore", {
         }
       }
     },
+    // Save a launch to MongoDB
+    // ~/stores/launchStore.ts
+    async saveLaunch(launch: Launch) {
+      try {
+        const response = await axios.post<{
+          success: boolean;
+          message?: string;
+        }>("/api/saveLaunch", {
+          flightNumber: launch.flight_number,
+          missionName: launch.name,
+          launchDate: launch.date_utc,
+        });
+
+        if (!response.data.success) {
+          throw new Error(response.data.message || "Failed to save launch");
+        }
+
+        console.log("Backend response:", response.data);
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          console.error("Axios error saving launch:", error.message);
+        } else {
+          console.error("Unexpected error saving launch:", error);
+        }
+        throw error;
+      }
+    },
   },
 });

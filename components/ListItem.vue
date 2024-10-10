@@ -12,15 +12,14 @@
               {{ formattedDate }}
             </p>
           </div>
+          <div class="level-right">
+            <Button
+              :label="actionLabel"
+              :buttonType="buttonType"
+              @click="onActionClick"
+            />
+          </div>
         </div>
-      </div>
-
-      <div class="level-right">
-        <Button
-          :label="actionLabel"
-          :buttonType="buttonType"
-          @click="onActionClick"
-        />
       </div>
     </div>
   </article>
@@ -54,7 +53,7 @@ const formattedDate = computed(() =>
 
 // Emit the actionClick event when the button is clicked
 const onActionClick = () => {
-  emits("actionClick", props.launch);
+  emits("actionClick", props.launch); // Emit the launch object from props
 };
 </script>
 

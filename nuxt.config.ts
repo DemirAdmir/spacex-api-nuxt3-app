@@ -12,4 +12,5 @@ export default defineNuxtConfig({
     mongoUri: process.env.MONGODB_URI,
   },
   css: ["~/assets/styles/main.scss"],
+  plugins: ["~/plugins/vue-toastification.ts"],
 });

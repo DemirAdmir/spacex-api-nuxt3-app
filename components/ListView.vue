@@ -1,12 +1,10 @@
-<!-- ~/components/ListView.vue -->
 <template>
-  <!-- Render a list of launches using the ListItem component -->
   <div class="box">
     <ListItem
       v-for="launch in launches"
-      :key="launch.flight_number || launch._id"
+      :key="launch.flightNumber || launch._id"
       :launch="launch"
-      :actionLabel="'Save Launch'"
+      :actionLabel="actionLabel"
       :buttonType="buttonType"
       @actionClick="onActionClick"
     />
@@ -14,17 +12,35 @@
 </template>
 
 <script setup lang="ts">
-import type { ListViewProps } from "~/interfaces/ListViewProps";
-import { defineProps } from "vue";
+import type { ListViewProps } from "../interfaces/ListViewProps";
 
-// Define props
 const props = defineProps<ListViewProps>();
-
-// Handler for the actionClick event emitted by ListItem
-const onActionClick = (launch: Launch) => {
-  console.log("Launch clicked:", launch);
-  alert("Launch clicked: " + JSON.stringify(launch));
-};
 </script>
 
-<style scoped></style>
+<style scoped>
+/* Add any specific styling if necessary, or customize the default Bulma classes */
+</style>
+
+<!-- <script setup lang="ts">
+import { PropType, defineProps, defineEmits } from "vue";
+import ListItem from "./ListItem.vue";
+
+const props = defineProps({
+  launches: {
+    type: Array as PropType<Array<any>>, // Replace with proper type
+    required: true,
+  },
+  actionLabel: {
+    type: String,
+    required: true,
+  },
+  buttonType: {
+    type: String,
+    default: "is-primary", // Default to primary button type
+  },
+  onActionClick: {
+    type: Function,
+    required: true,
+  },
+});
+</script> -->
