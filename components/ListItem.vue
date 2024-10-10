@@ -4,25 +4,46 @@
   <article class="media">
     <div class="media-content">
       <div class="content">
-        <p>
-          <strong>{{ launchName }}</strong> (Flight Number: {{ launchId }}) -
-          {{ formattedDate }}
-        </p>
+        <div class="level">
+          <div class="level-left">
+            <p>
+              <strong>{{ launchName }}</strong> (Flight Number: {{ launchId }})
+              -
+              {{ formattedDate }}
+            </p>
+          </div>
+        </div>
       </div>
-      <nav class="level is-mobile"></nav>
+
+      <div class="level-right">
+        <Button
+          :label="actionLabel"
+          :buttonType="buttonType"
+          @click="onActionClick"
+        />
+      </div>
     </div>
   </article>
 </template>
 
 <script setup lang="ts">
+import { computed, defineProps, defineEmits } from "vue";
 import type { Launch } from "~/interfaces/Launch";
+import Button from "~/components/CustomButton.vue";
 
-// Props for the ListItem component
+// Define props
 const props = defineProps<{
   launch: Launch;
+  actionLabel: string;
+  buttonType?: string;
 }>();
 
-// Computed properties for reactive data manipulation
+// Define emits with TypeScript type annotations
+const emits = defineEmits<{
+  (e: "actionClick", launch: Launch): void;
+}>();
+
+// Computed properties for handling launch data
 const launchId = computed(() => props.launch.flight_number || "N/A");
 const launchName = computed(() => props.launch.name || "Unknown");
 const formattedDate = computed(() =>
@@ -30,6 +51,13 @@ const formattedDate = computed(() =>
     ? new Date(props.launch.date_utc).toLocaleDateString()
     : "Invalid Date"
 );
+
+// Emit the actionClick event when the button is clicked
+const onActionClick = () => {
+  emits("actionClick", props.launch);
+};
 </script>
 
-<style scoped></style>
+<style scoped>
+/* Customize the media content styles if needed */
+</style>

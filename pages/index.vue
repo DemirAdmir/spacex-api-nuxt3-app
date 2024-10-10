@@ -7,7 +7,11 @@
         <h1 class="title is-3 mb-5">SpaceX Launches</h1>
         <!-- Render the ListView component if launches are available, otherwise show a loading message -->
         <div v-if="launchStore.launches.length > 0">
-          <ListView :launches="launchStore.launches" />
+          <ListView
+            :launches="launchStore.launches"
+            actionLabel="Save Launch"
+            buttonType="is-primary"
+          />
         </div>
         <p v-else>Loading launches...</p>
       </div>

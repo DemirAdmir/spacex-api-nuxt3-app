@@ -4,4 +4,5 @@ export interface ListViewProps {
   launches: Launch[];
   actionLabel: string;
   buttonType?: string;
+  onActionClick: (launch: Launch) => void;
 }

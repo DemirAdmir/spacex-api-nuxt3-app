@@ -4,19 +4,27 @@
   <div class="box">
     <ListItem
       v-for="launch in launches"
-      :key="launch.flightNumber || launch._id"
+      :key="launch.flight_number || launch._id"
       :launch="launch"
+      :actionLabel="'Save Launch'"
+      :buttonType="buttonType"
+      @actionClick="onActionClick"
     />
   </div>
 </template>
 
 <script setup lang="ts">
 import type { ListViewProps } from "~/interfaces/ListViewProps";
+import { defineProps } from "vue";
 
-// Define props for the List component
+// Define props
 const props = defineProps<ListViewProps>();
+
+// Handler for the actionClick event emitted by ListItem
+const onActionClick = (launch: Launch) => {
+  console.log("Launch clicked:", launch);
+  alert("Launch clicked: " + JSON.stringify(launch));
+};
 </script>
 
-<style scoped>
-/* Add any component-specific styles here */
-</style>
+<style scoped></style>
