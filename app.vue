@@ -1,18 +1,22 @@
 <!-- ~/app.vue -->
 <template>
-  <Navbar aria-label="Main navigation" />
+  <div class="app-container">
+    <Navbar aria-label="Main navigation" />
 
-  <!-- Main layout wrapper for page content -->
-  <NuxtLayout aria-label="Page layout">
-    <!-- Main content area  -->
+    <!-- Main layout wrapper for page content -->
     <main id="main-content" aria-label="Main content" role="main">
-      <NuxtPage />
+      <NuxtLayout aria-label="Page layout">
+        <NuxtPage />
+      </NuxtLayout>
     </main>
-  </NuxtLayout>
+
+    <Footer />
+  </div>
 </template>
 
 <script setup>
 import Navbar from "~/components/Navbar.vue";
+import Footer from "~/components/Footer.vue";
 </script>
 
 <style scoped></style>
