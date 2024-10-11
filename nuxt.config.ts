@@ -12,7 +12,8 @@ export default defineNuxtConfig({
     mongoUri: process.env.MONGODB_URI,
   },
   css: ["~/assets/styles/main.scss"],
-  plugins: ["~/plugins/vue-toastification.ts"],
+  plugins: ["~/plugins/vue-toastification.ts", "~/plugins/vue-scrollto.ts"],
+
   vite: {
     css: {
       preprocessorOptions: {

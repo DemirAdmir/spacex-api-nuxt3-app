@@ -20,6 +20,7 @@
     "sass": "^1.79.5",
     "vue": "latest",
     "vue-router": "latest",
+    "vue-scrollto": "^2.20.0",
     "vue-toastification": "^2.0.0-rc.5"
   },
   "devDependencies": {

@@ -3,6 +3,10 @@
 // Import Bulma using the @use syntax
 @use "bulma" as *;
 
+html {
+  scroll-behavior: smooth; // Enable smooth scrolling behavior
+}
+
 // Global styles
 html,
 body {
