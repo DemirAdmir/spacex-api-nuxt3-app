@@ -2,7 +2,13 @@
 <template>
   <div>
     <!-- Main section displaying the SpaceX launches -->
-    <section class="section">
+    <section
+      class="section"
+      :style="{
+        backgroundColor: 'var(--background-color)',
+        color: 'var(--text-color)',
+      }"
+    >
       <div class="container">
         <h1 class="title is-3 mb-5">SpaceX Launches</h1>
         <!-- Render the ListView component if launches are available, otherwise show a loading message -->
@@ -63,4 +69,8 @@ const handleSaveLaunch = async (launch: Launch) => {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.section {
+  transition: background-color 0.3s, color 0.3s;
+}
+</style>

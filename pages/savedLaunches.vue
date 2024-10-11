@@ -2,7 +2,13 @@
 <!-- ~/pages/savedLaunches.vue -->
 <template>
   <div>
-    <section class="section">
+    <section
+      class="section"
+      :style="{
+        backgroundColor: 'var(--background-color)',
+        color: 'var(--text-color)',
+      }"
+    >
       <div class="container">
         <h1 class="title is-3 mb-5">Saved Launches</h1>
         <div v-if="savedLaunches.length > 0">
@@ -62,7 +68,7 @@ const deleteLaunch = async (launch: Launch) => {
 </script>
 
 <style scoped>
-.title {
-  margin-bottom: 1rem;
+.section {
+  transition: background-color 0.3s, color 0.3s;
 }
 </style>
