@@ -3,6 +3,48 @@
 // Import Bulma using the @use syntax
 @use "bulma" as *;
 
+// Global styles
+html,
+body {
+  height: 100%; /* Ensure full height */
+  margin: 0; /* Remove default margins */
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  min-height: 100vh;
+}
+
+.content {
+  flex: 1; /* Allow this area to grow and take up available space */
+}
+
+/* Footer styles */
+footer {
+  height: 60px;
+  padding: 20px;
+  background-color: var(--navbar-background-color);
+  color: var(--navbar-item-color);
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+  }
+}
+
+/* Desktop styles */
+@media (min-width: 769px) {
+  footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+  }
+}
 // Light mode variables
 :root {
   --primary-color: #00d1b2;
