@@ -1,32 +1,37 @@
 <!-- ~/pages/savedLaunches.vue -->
 <template>
-  <div>
-    <section
-      class="section"
-      :style="{
-        backgroundColor: 'var(--background-color)',
-        color: 'var(--text-color)',
-      }"
-      aria-labelledby="saved-launches-heading"
-      aria-live="polite"
-    >
-      <div class="container">
-        <h1 id="saved-launches-heading" class="title is-3 mb-5">
-          Saved Launches
-        </h1>
-        <div v-if="savedLaunches.length > 0" aria-live="polite">
-          <ListView
-            :launches="savedLaunches"
-            actionLabel="Delete Launch"
-            buttonType="is-danger"
-            @actionClick="deleteLaunch"
-            aria-label="List of saved launches"
-          />
+  <NuxtErrorBoundary>
+    <div>
+      <section
+        class="section"
+        :style="{
+          backgroundColor: 'var(--background-color)',
+          color: 'var(--text-color)',
+        }"
+        aria-labelledby="saved-launches-heading"
+        aria-live="polite"
+      >
+        <div class="container">
+          <h1 id="saved-launches-heading" class="title is-3 mb-5">
+            Saved Launches
+          </h1>
+
+          <div v-if="savedLaunches.length > 0" aria-live="polite">
+            <ListView
+              :launches="savedLaunches"
+              actionLabel="Delete Launch"
+              buttonType="is-danger"
+              @actionClick="deleteLaunch"
+              aria-label="List of saved launches"
+            />
+          </div>
+          <p v-else class="notification is-info" aria-live="assertive">
+            No saved launches found.
+          </p>
         </div>
-        <p v-else>No saved launches found.</p>
-      </div>
-    </section>
-  </div>
+      </section>
+    </div>
+  </NuxtErrorBoundary>
 </template>
 
 <script setup lang="ts">
@@ -57,7 +62,6 @@ const deleteLaunch = async (launch: Launch) => {
     `Are you sure you want to delete the launch: ${launch.name}?`
   );
   if (!confirmDelete) return;
-
   loading.value = true;
   try {
     await launchStore.deleteLaunch(launch._id as string);

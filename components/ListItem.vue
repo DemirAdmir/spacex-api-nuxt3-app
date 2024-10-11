@@ -1,33 +1,36 @@
 <!-- ~/components/ListItem.vue -->
 
 <template>
-  <!-- Display launch information inside a media component -->
-  <article class="media" role="listitem">
-    <div class="media-content">
-      <div class="content">
-        <div class="level">
-          <div class="level-left">
-            <p>
-              <strong>{{ launchName }}</strong> (Flight Number: {{ launchId }})
-              -
-              {{ formattedDate }}
-            </p>
-          </div>
-          <div class="level-right">
-            <Button
-              :label="actionLabel"
-              :buttonType="buttonType"
-              @click="onActionClick"
-              aria-label="Perform action on {{ launchName }}"
-            />
+  <NuxtErrorBoundary>
+    <!-- Display launch information inside a media component -->
+    <article class="media" role="listitem">
+      <div class="media-content">
+        <div class="content">
+          <div class="level">
+            <div class="level-left">
+              <p>
+                <strong>{{ launchName }}</strong> (Flight Number:
+                {{ launchId }}) -
+                {{ formattedDate }}
+              </p>
+            </div>
+            <div class="level-right">
+              <Button
+                :label="actionLabel"
+                :buttonType="buttonType"
+                @click="onActionClick"
+                aria-label="Perform action on {{ launchName }}"
+              />
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </article>
+    </article>
+  </NuxtErrorBoundary>
 </template>
 
 <script setup lang="ts">
+"use strict";
 import { computed, defineProps, defineEmits } from "vue";
 import type { Launch } from "~/interfaces/Launch";
 import Button from "~/components/CustomButton.vue";

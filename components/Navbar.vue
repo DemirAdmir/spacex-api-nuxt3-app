@@ -1,51 +1,54 @@
 <!-- ~/components/Navbar.vue -->
 <template>
-  <nav class="navbar" role="navigation" aria-label="main navigation">
-    <div class="container">
-      <div class="navbar-brand">
-        <!-- Hamburger menu icon for mobile -->
-        <a
-          role="button"
-          class="navbar-burger"
-          :class="{ 'is-active': isActive }"
-          aria-label="menu"
-          aria-expanded="false"
-          @click="toggleNavbar"
-        >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
-      </div>
+  <NuxtErrorBoundary>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="container">
+        <div class="navbar-brand">
+          <!-- Hamburger menu icon for mobile -->
+          <a
+            role="button"
+            class="navbar-burger"
+            :class="{ 'is-active': isActive }"
+            aria-label="menu"
+            aria-expanded="false"
+            @click="toggleNavbar"
+          >
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
 
-      <!-- Navbar menu items -->
-      <div class="navbar-menu" :class="{ 'is-active': isActive }">
-        <NuxtLink
-          to="/"
-          class="navbar-item"
-          :class="{ 'is-active': $route.path === '/' }"
-          @click="closeNavbar"
-        >
-          Home
-        </NuxtLink>
-        <NuxtLink
-          to="/savedLaunches"
-          class="navbar-item"
-          :class="{ 'is-active': $route.path === '/savedLaunches' }"
-          @click="closeNavbar"
-        >
-          Saved Launches
-        </NuxtLink>
-        <!-- Dark mode toggle button -->
-        <button class="button is-light ml-auto" @click="toggleDarkMode">
-          {{ isDarkMode ? "Light Mode" : "Dark Mode" }}
-        </button>
+        <!-- Navbar menu items -->
+        <div class="navbar-menu" :class="{ 'is-active': isActive }">
+          <NuxtLink
+            to="/"
+            class="navbar-item"
+            :class="{ 'is-active': $route.path === '/' }"
+            @click="closeNavbar"
+          >
+            Home
+          </NuxtLink>
+          <NuxtLink
+            to="/savedLaunches"
+            class="navbar-item"
+            :class="{ 'is-active': $route.path === '/savedLaunches' }"
+            @click="closeNavbar"
+          >
+            Saved Launches
+          </NuxtLink>
+          <!-- Dark mode toggle button -->
+          <button class="button is-light ml-auto" @click="toggleDarkMode">
+            {{ isDarkMode ? "Light Mode" : "Dark Mode" }}
+          </button>
+        </div>
       </div>
-    </div>
-  </nav>
+    </nav>
+  </NuxtErrorBoundary>
 </template>
 
 <script setup lang="ts">
+"use strict";
 import { ref, onMounted } from "vue";
 
 const isActive = ref(false);

@@ -1,4 +1,18 @@
 {
-  // https://nuxt.com/docs/guide/concepts/typescript
-  "extends": "./.nuxt/tsconfig.json"
+  "extends": "./.nuxt/tsconfig.json",
+  "compilerOptions": {
+    "strict": true,
+    "typeRoots": [
+      "./node_modules/@types",
+      "./types" // Add this if you have a custom types directory
+    ]
+  },
+  "include": [
+    "nuxt.config.ts",
+    "types/**/*.d.ts",
+    "plugins/**/*.ts",
+    "pages/**/*.vue",
+    "components/**/*.vue",
+    "plugins/vue3-spinner.mjs"
+  ]
 }

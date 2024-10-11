@@ -1,34 +1,38 @@
 <!-- ~/pages/index.vue -->
 <template>
-  <div>
-    <!-- Main section displaying the SpaceX launches -->
-    <section
-      class="section"
-      :style="{
-        backgroundColor: 'var(--background-color)',
-        color: 'var(--text-color)',
-      }"
-      aria-labelledby="spacex-launches-heading"
-      aria-live="polite"
-    >
-      <div class="container">
-        <h1 id="spacex-launches-heading" class="title is-3 mb-5">
-          SpaceX Launches
-        </h1>
-        <!-- Render the ListView component if launches are available, otherwise show a loading message -->
-        <div v-if="launchStore.launches.length > 0">
-          <ListView
-            :launches="launchStore.launches"
-            actionLabel="Save Launch"
-            buttonType="is-primary"
-            @actionClick="handleSaveLaunch"
-            aria-label="List of SpaceX launches"
-          />
+  <NuxtErrorBoundary>
+    <div>
+      <!-- Main section displaying the SpaceX launches -->
+      <section
+        class="section"
+        :style="{
+          backgroundColor: 'var(--background-color)',
+          color: 'var(--text-color)',
+        }"
+        aria-labelledby="spacex-launches-heading"
+        aria-live="polite"
+      >
+        <div class="container">
+          <h1 id="spacex-launches-heading" class="title is-3 mb-5">
+            SpaceX Launches
+          </h1>
+
+          <!-- Render the ListView component if launches are available, otherwise show a loading message -->
+          <div v-if="launchStore.launches.length > 0">
+            <ListView
+              :launches="launchStore.launches"
+              actionLabel="Save Launch"
+              buttonType="is-primary"
+              @actionClick="handleSaveLaunch"
+              aria-label="List of SpaceX launches"
+            />
+          </div>
+
+          <p v-else aria-live="assertive">Loading launches...</p>
         </div>
-        <p v-else aria-live="assertive">Loading launches...</p>
-      </div>
-    </section>
-  </div>
+      </section>
+    </div>
+  </NuxtErrorBoundary>
 </template>
 
 <script setup lang="ts">
@@ -55,6 +59,7 @@ if (serverData.value?.data) {
 
 // Client-side fetching using `onMounted` for real-time updates
 onMounted(async () => {
+  //   loading.value = true; // Set loading to true before fetching
   isClient.value = true; // Indicate that we're now on the client
   if (!launchStore.launches.length) {
     // Fetch launches again if no data is available

@@ -1,15 +1,18 @@
 <!-- ~/components/CustomButton.vue -->
 <template>
-  <button
-    :class="['button', buttonType, buttonClass]"
-    @click="handleClick"
-    :aria-label="label"
-  >
-    {{ label }}
-  </button>
+  <NuxtErrorBoundary>
+    <button
+      :class="['button', buttonType, buttonClass]"
+      @click="handleClick"
+      :aria-label="label"
+    >
+      {{ label }}
+    </button>
+  </NuxtErrorBoundary>
 </template>
 
 <script setup lang="ts">
+"use strict";
 import { defineProps, defineEmits } from "vue";
 
 // Define props

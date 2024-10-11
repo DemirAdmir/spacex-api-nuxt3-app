@@ -58,6 +58,8 @@ footer {
   --navbar-text-color: #4a4a4a;
   --button-primary-background: #00d1b2;
   --button-primary-color: #ffffff;
+  --notification-background: #e0f7fa; /* Light blue background for light mode */
+  --notification-text-color: #004d40; /* Dark text color for light mode */
 }
 
 // Dark mode variables
@@ -69,6 +71,8 @@ footer {
   --navbar-text-color: #ffffff;
   --button-primary-background: #00796b;
   --button-primary-color: #000000;
+  --notification-background: #004d40; /* Dark background for dark mode */
+  --notification-text-color: #e0f7fa; /* Light text color for dark mode */
 }
 
 // Applying colors to Bulma components
@@ -92,4 +96,17 @@ footer {
 .button.is-primary {
   background-color: var(--button-primary-background);
   color: var(--button-primary-color);
+}
+
+.nuxt-loading {
+  background-color: #00d1b2 !important; /* Customize the loading bar color */
+  height: 5px; /* Customize the height */
+  transition: all 0.5s; /* Add a transition effect */
+}
+
+.notification {
+  background-color: var(--notification-background);
+  color: var(--notification-text-color);
+  padding: 1rem;
+  border-radius: 4px;
 }
