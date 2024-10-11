@@ -1,6 +1,10 @@
 <!-- ~/components/CustomButton.vue -->
 <template>
-  <button :class="['button', buttonType, buttonClass]" @click="handleClick">
+  <button
+    :class="['button', buttonType, buttonClass]"
+    @click="handleClick"
+    :aria-label="label"
+  >
     {{ label }}
   </button>
 </template>

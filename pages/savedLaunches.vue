@@ -1,5 +1,4 @@
 <!-- ~/pages/savedLaunches.vue -->
-<!-- ~/pages/savedLaunches.vue -->
 <template>
   <div>
     <section
@@ -8,15 +7,20 @@
         backgroundColor: 'var(--background-color)',
         color: 'var(--text-color)',
       }"
+      aria-labelledby="saved-launches-heading"
+      aria-live="polite"
     >
       <div class="container">
-        <h1 class="title is-3 mb-5">Saved Launches</h1>
-        <div v-if="savedLaunches.length > 0">
+        <h1 id="saved-launches-heading" class="title is-3 mb-5">
+          Saved Launches
+        </h1>
+        <div v-if="savedLaunches.length > 0" aria-live="polite">
           <ListView
             :launches="savedLaunches"
             actionLabel="Delete Launch"
             buttonType="is-danger"
             @actionClick="deleteLaunch"
+            aria-label="List of saved launches"
           />
         </div>
         <p v-else>No saved launches found.</p>

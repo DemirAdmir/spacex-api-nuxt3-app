@@ -1,9 +1,12 @@
+<!-- ~/components/ListView.vue -->
 <template>
   <div
     :style="{
       backgroundColor: 'var(--background-color)',
       color: 'var(--text-color)',
     }"
+    role="list"
+    aria-label="List of launches"
   >
     <ListItem
       v-for="launch in launches"
@@ -12,6 +15,7 @@
       :actionLabel="actionLabel"
       :buttonType="buttonType"
       @actionClick="onActionClick"
+      role="listitem"
     />
   </div>
 </template>

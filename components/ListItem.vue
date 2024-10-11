@@ -1,7 +1,8 @@
 <!-- ~/components/ListItem.vue -->
+
 <template>
   <!-- Display launch information inside a media component -->
-  <article class="media">
+  <article class="media" role="listitem">
     <div class="media-content">
       <div class="content">
         <div class="level">
@@ -17,6 +18,7 @@
               :label="actionLabel"
               :buttonType="buttonType"
               @click="onActionClick"
+              aria-label="Perform action on {{ launchName }}"
             />
           </div>
         </div>
@@ -57,6 +59,4 @@ const onActionClick = () => {
 };
 </script>
 
-<style scoped>
-/* Customize the media content styles if needed */
-</style>
+<style scoped></style>

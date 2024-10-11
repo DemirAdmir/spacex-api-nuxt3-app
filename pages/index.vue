@@ -8,9 +8,13 @@
         backgroundColor: 'var(--background-color)',
         color: 'var(--text-color)',
       }"
+      aria-labelledby="spacex-launches-heading"
+      aria-live="polite"
     >
       <div class="container">
-        <h1 class="title is-3 mb-5">SpaceX Launches</h1>
+        <h1 id="spacex-launches-heading" class="title is-3 mb-5">
+          SpaceX Launches
+        </h1>
         <!-- Render the ListView component if launches are available, otherwise show a loading message -->
         <div v-if="launchStore.launches.length > 0">
           <ListView
@@ -18,9 +22,10 @@
             actionLabel="Save Launch"
             buttonType="is-primary"
             @actionClick="handleSaveLaunch"
+            aria-label="List of SpaceX launches"
           />
         </div>
-        <p v-else>Loading launches...</p>
+        <p v-else aria-live="assertive">Loading launches...</p>
       </div>
     </section>
   </div>
