@@ -10,7 +10,16 @@ interface IModel extends Document {
 // Create the schema for the Launch model
 const LaunchSchema = new Schema<IModel>(
   {
-    flightNumber: { type: Number, required: true },
+    flightNumber: {
+      type: Number,
+      required: true,
+      validate: {
+        validator: (value: number) => {
+          return value > 0; // Custom validation: flight_number must be positive
+        },
+        message: "Flight number must be positive.",
+      },
+    },
     missionName: { type: String, required: true },
     launchDate: { type: Date, required: true },
   },
