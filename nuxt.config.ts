@@ -13,4 +13,13 @@ export default defineNuxtConfig({
   },
   css: ["~/assets/styles/main.scss"],
   plugins: ["~/plugins/vue-toastification.ts"],
+  vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          implementation: require("sass"), // Use Dart Sass explicitly
+        },
+      },
+    },
+  },
 });
