@@ -1,24 +1,42 @@
 // ~/server/api/saveLaunch.ts
 import { defineEventHandler, readBody } from "h3";
-import Launch from "~/server/models/Launch"; // Import the Launch model
+import Launch from "~/server/models/Launch";
+import validator from "validator";
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
 
-  // Validate the incoming data
-  if (!body.flightNumber || !body.missionName || !body.launchDate) {
+  // Validate and sanitize the incoming data
+  const flightNumber = body.flightNumber;
+  const missionName = body.missionName;
+  const launchDate = body.launchDate;
+
+  // Check required fields
+  if (!flightNumber || !missionName || !launchDate) {
     return {
       success: false,
       message: "Required fields are missing",
     };
   }
 
+  // Sanitize the inputs
+  const sanitizedMissionName = validator.escape(missionName); // Escape HTML characters to prevent XSS
+  const sanitizedLaunchDate = validator.toDate(launchDate); // Convert to date
+
+  // Further validation can be done here
+  if (!validator.isNumeric(flightNumber.toString())) {
+    return {
+      success: false,
+      message: "Flight number must be a number",
+    };
+  }
+
   try {
     // Save the launch to MongoDB
     const newLaunch = new Launch({
-      flightNumber: body.flightNumber,
-      missionName: body.missionName,
-      launchDate: body.launchDate,
+      flightNumber: flightNumber,
+      missionName: sanitizedMissionName,
+      launchDate: sanitizedLaunchDate,
     });
 
     await newLaunch.save();
