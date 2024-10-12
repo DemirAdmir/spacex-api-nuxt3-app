@@ -1,1 +1,28 @@
+# Allow all crawlers access to everything by default
+User-agent: *
+Disallow: 
 
+# Block sensitive areas
+Disallow: /admin/          # Prevent crawling of admin area
+Disallow: /login/          # Prevent crawling of login page
+Disallow: /private/        # Prevent crawling of private data
+
+
+# Allow specific important pages explicitly
+Allow: /                    # Allow homepage
+Allow: /savedLaunches               # Allow savedLaunches page
+
+
+
+# Block specific file types
+Disallow: /*.pdf$          # Block all PDF files
+Disallow: /*.zip$          # Block all ZIP files
+
+# Allow certain files within blocked directories
+Allow: /images/public-image.jpg  # Allow specific image
+
+# Block URLs with certain parameters
+Disallow: /*?session_id=*  # Block any URL containing a session ID
+
+# Sitemap location
+Sitemap: https://yourdomain.com/sitemap.xml  # Include the sitemap URL
