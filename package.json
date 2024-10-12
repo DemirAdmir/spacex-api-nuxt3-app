@@ -12,6 +12,7 @@
     "rebuild": "yarn clean && yarn install"
   },
   "dependencies": {
+    "@nuxtjs/sitemap": "^6.1.1",
     "@pinia/nuxt": "^0.5.5",
     "axios": "^1.7.7",
     "bulma": "^1.0.2",

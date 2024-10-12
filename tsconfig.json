@@ -13,6 +13,12 @@
     "plugins/**/*.ts",
     "pages/**/*.vue",
     "components/**/*.vue",
-    "plugins/vue3-spinner.mjs"
+    "composables/**/*.ts",
+    "content/**/*.md",
+    "content/**/*.yml",
+    "modules/**/*.ts",
+    "middleware/**/*.ts",
+    "utils/**/*.ts",
+    "validator/**/*.ts"
   ]
 }
