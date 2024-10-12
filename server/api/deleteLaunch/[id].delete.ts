@@ -1,14 +1,16 @@
 // ~/server/api/deleteLaunch/[id].delete.ts
 import { defineEventHandler } from "h3";
-import Launch from "~/server/models/Launch"; // Import the Launch model
+import Launch from "~/server/models/Launch";
+import validator from "validator";
 
 export default defineEventHandler(async (event) => {
   const launchId = event.context.params?.id; // Get the ID from the route params
 
-  if (!launchId) {
+  // Validate the launch ID
+  if (!launchId || !validator.isMongoId(launchId)) {
     return {
       success: false,
-      message: "Launch ID is required",
+      message: "Valid Launch ID is required",
     };
   }
 
