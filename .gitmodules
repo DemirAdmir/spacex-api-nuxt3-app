@@ -1,0 +1,3 @@
+[submodule "submodules/testing"]
+	path = submodules/testing
+	url = https://github.com/DemirAdmir/spacex-api-nuxt3-app-tests.git
