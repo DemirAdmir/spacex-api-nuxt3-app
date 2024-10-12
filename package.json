@@ -21,6 +21,7 @@
     "mongoose": "^8.7.1",
     "nuxt": "^3.13.0",
     "sass": "^1.79.5",
+    "validator": "^13.12.0",
     "vue": "^3.5.12",
     "vue-router": "latest",
     "vue-scrollto": "^2.20.0",
@@ -30,6 +31,7 @@
     "@nuxt/types": "^2.18.1",
     "@types/mongoose": "^5.11.97",
     "@types/node": "^22.7.5",
+    "@types/validator": "^13.12.2",
     "typescript": "^5.6.3"
   },
   "license": "MIT"
