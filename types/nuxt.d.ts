@@ -14,5 +14,11 @@ declare module "nuxt/config" {
         lastmod?: string;
       };
     };
+    head?: {
+      meta?: Array<{
+        "http-equiv"?: string;
+        content?: string;
+      }>;
+    };
   }
 }
