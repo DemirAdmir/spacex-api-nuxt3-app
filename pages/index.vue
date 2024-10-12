@@ -16,9 +16,10 @@
           <h1 id="spacex-launches-heading" class="title is-3 mb-5">
             SpaceX Launches
           </h1>
+          <!-- Show skeleton loader when loading -->
+          <SkeletonLoader v-if="loading" />
 
-          <!-- Render the ListView component if launches are available, otherwise show a loading message -->
-          <div v-if="launchStore.launches.length > 0">
+          <div v-else-if="launchStore.launches.length > 0">
             <ListView
               :launches="launchStore.launches"
               actionLabel="Save Launch"
@@ -28,7 +29,7 @@
             />
           </div>
 
-          <p v-else aria-live="assertive">Loading launches...</p>
+          <p v-else aria-live="assertive">No launches found.</p>
         </div>
       </section>
     </div>
@@ -39,11 +40,12 @@
 import { useLaunchStore } from "~/stores/launches";
 import { onMounted, ref } from "vue";
 import { useToast } from "vue-toastification";
+import SkeletonLoader from "~/components/SkeletonLoader.vue";
 
 // Get the launch store and toast instance
 const launchStore = useLaunchStore();
 const toast = useToast();
-const isClient = ref(false);
+const loading = ref(true); // Set loading to true initially
 
 // Server-side fetching using `useFetch` to get the initial data
 const { data: serverData, error } = await useFetch("/api/getLaunches", {
@@ -51,19 +53,20 @@ const { data: serverData, error } = await useFetch("/api/getLaunches", {
 });
 
 // Update the Pinia store with server-side fetched data if available
+loading.value = true;
 if (serverData.value?.data) {
   launchStore.launches = serverData.value.data;
 } else if (error.value) {
   console.error("Failed to fetch initial launches:", error.value);
 }
-
+loading.value = false; // Stop loading after fetching
 // Client-side fetching using `onMounted` for real-time updates
 onMounted(async () => {
-  //   loading.value = true; // Set loading to true before fetching
-  isClient.value = true; // Indicate that we're now on the client
   if (!launchStore.launches.length) {
+    loading.value = true;
     // Fetch launches again if no data is available
     await launchStore.fetchLaunches();
+    loading.value = false;
   }
 });
 
@@ -80,7 +83,7 @@ const handleSaveLaunch = async (launch: Launch) => {
 </script>
 
 <style scoped>
-.section {
-  transition: background-color 0.3s, color 0.3s;
+.skeleton-loader {
+  margin-top: 20px;
 }
 </style>

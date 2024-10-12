@@ -16,7 +16,10 @@
             Saved Launches
           </h1>
 
-          <div v-if="savedLaunches.length > 0" aria-live="polite">
+          <!-- Show loading skeleton when saved launches are being fetched -->
+          <SkeletonLoader v-if="loading" />
+
+          <div v-else-if="savedLaunches.length > 0" aria-live="polite">
             <ListView
               :launches="savedLaunches"
               actionLabel="Delete Launch"
@@ -40,20 +43,21 @@ import { useLaunchStore } from "../stores/launches";
 import type { Launch } from "../interfaces/Launch";
 import ListView from "~/components/ListView.vue";
 import { useToast } from "vue-toastification";
+import SkeletonLoader from "~/components/SkeletonLoader.vue";
 
 const launchStore = useLaunchStore();
-const loading = ref(false);
+const loading = ref(true); // Set loading to true initially
 const toast = useToast();
 const savedLaunches = computed(() => launchStore.savedLaunches);
 
 onMounted(async () => {
-  loading.value = true;
+  loading.value = true; // Start loading
   try {
     await launchStore.fetchSavedLaunches();
   } catch (error) {
     console.error("Error fetching saved launches:", error);
   } finally {
-    loading.value = false;
+    loading.value = false; // End loading
   }
 });
 
@@ -62,7 +66,7 @@ const deleteLaunch = async (launch: Launch) => {
     `Are you sure you want to delete the launch: ${launch.name}?`
   );
   if (!confirmDelete) return;
-  loading.value = true;
+  loading.value = true; // Start loading during deletion
   try {
     await launchStore.deleteLaunch(launch._id as string);
     toast.success("Launch deleted successfully.");
@@ -70,7 +74,7 @@ const deleteLaunch = async (launch: Launch) => {
     console.error("Error deleting launch:", error);
     toast.error("Failed to delete the launch.");
   } finally {
-    loading.value = false;
+    loading.value = false; // End loading
   }
 };
 </script>
