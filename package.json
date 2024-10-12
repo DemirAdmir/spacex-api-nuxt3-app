@@ -7,14 +7,16 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "clean": "rm -rf node_modules yarn.lock && yarn cache clean",
+    "rebuild": "yarn clean && yarn install"
   },
   "dependencies": {
     "@pinia/nuxt": "^0.5.5",
-    "@types/mongoose": "^5.11.97",
     "axios": "^1.7.7",
     "bulma": "^1.0.2",
     "dotenv": "^16.4.5",
+    "mongodb": "^6.9.0",
     "mongoose": "^8.7.1",
     "nuxt": "^3.13.0",
     "sass": "^1.79.5",
@@ -24,8 +26,10 @@
     "vue-toastification": "^2.0.0-rc.5"
   },
   "devDependencies": {
+    "@nuxt/types": "^2.18.1",
+    "@types/mongoose": "^5.11.97",
     "@types/node": "^22.7.5",
-    "sass-loader": "^16.0.2",
     "typescript": "^5.6.3"
-  }
+  },
+  "license": "MIT"
 }
