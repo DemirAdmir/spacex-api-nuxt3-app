@@ -1,19 +1,30 @@
 // assets/styles/main.scss
 
+// Override Bulma's default variables
+$mobile: 0px !default; // Mobile breakpoint
+$tablet: 600px !default; // Tablet breakpoint
+$desktop: 1024px !default; // Desktop breakpoint
+$widescreen: 1216px !default; // Widescreen breakpoint
+$fullhd: 1408px !default; // Full HD breakpoint
+
 // Import Bulma using the @use syntax
 @use "bulma" as *;
 
+// Global styles
 html {
   scroll-behavior: smooth; // Enable smooth scrolling behavior
 }
 
-// Global styles
 html,
 body {
   height: 100%; /* Ensure full height */
   margin: 0; /* Remove default margins */
 }
 
+// Applying colors to the main section
+main {
+  background-color: var(--main-background-color);
+}
 .app-container {
   display: flex;
   flex-direction: column; /* Stack children vertically */
@@ -26,14 +37,16 @@ body {
 
 /* Footer styles */
 footer {
-  height: 60px;
-  padding: 20px;
+  padding: 20px; /* Add some padding for visual appeal */
   background-color: var(--navbar-background-color);
   color: var(--navbar-item-color);
+  position: relative; /* Default position */
+  bottom: 0; /* Keep it at the bottom */
+  width: 100%; /* Full width */
 }
 
-/* Mobile styles */
-@media (max-width: 768px) {
+/* Responsive styles using the custom breakpoints */
+@media (max-width: $tablet) {
   footer {
     position: relative;
     bottom: 0;
@@ -41,14 +54,14 @@ footer {
   }
 }
 
-/* Desktop styles */
-@media (min-width: 769px) {
+@media (min-width: $tablet) {
   footer {
     position: relative;
     bottom: 0;
     width: 100%;
   }
 }
+
 // Light mode variables
 :root {
   --primary-color: #00d1b2;
@@ -58,8 +71,8 @@ footer {
   --navbar-text-color: #4a4a4a;
   --button-primary-background: #00d1b2;
   --button-primary-color: #ffffff;
-  --notification-background: #e0f7fa; /* Light blue background for light mode */
-  --notification-text-color: #004d40; /* Dark text color for light mode */
+  --notification-background: #e0f7fa;
+  --notification-text-color: #004d40;
 }
 
 // Dark mode variables
@@ -71,13 +84,12 @@ footer {
   --navbar-text-color: #ffffff;
   --button-primary-background: #00796b;
   --button-primary-color: #000000;
-  --notification-background: #004d40; /* Dark background for dark mode */
-  --notification-text-color: #e0f7fa; /* Light text color for dark mode */
+  --notification-background: #004d40;
+  --notification-text-color: #e0f7fa;
+  --main-background-color: #2e2e2e;
 }
 
 // Applying colors to Bulma components
-
-// Navbar styles
 .navbar {
   background-color: var(--navbar-background-color);
   color: var(--navbar-text-color);
@@ -92,16 +104,10 @@ footer {
   color: var(--button-primary-color);
 }
 
-// Button styles
+/* Button styles */
 .button.is-primary {
   background-color: var(--button-primary-background);
   color: var(--button-primary-color);
-}
-
-.nuxt-loading {
-  background-color: #00d1b2 !important; /* Customize the loading bar color */
-  height: 5px; /* Customize the height */
-  transition: all 0.5s; /* Add a transition effect */
 }
 
 .notification {

@@ -86,28 +86,18 @@ onMounted(() => {
 });
 </script>
 
-<style scoped>
-/* Navbar base styles */
+<style lang="scss" scoped>
+@import "../assets/styles/main.scss";
 .navbar {
   background-color: var(--navbar-background-color);
 }
 
-/* Navbar item styles */
-.navbar-item {
-  color: var(--navbar-text-color);
-}
-
-.navbar-item.is-active {
-  background-color: var(--primary-color);
-  color: var(--button-primary-color);
-}
-
-/* Hamburger menu icon visibility for mobile */
+/* Responsive styles */
 .navbar-burger {
   display: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: $tablet) {
   .navbar-burger {
     display: block; /* Show hamburger icon on mobile */
   }
@@ -120,18 +110,5 @@ onMounted(() => {
     display: flex; /* Show when active */
     flex-direction: column;
   }
-}
-
-/* Light and dark mode styles */
-:root {
-  --primary-color: #00d1b2;
-  --navbar-text-color: #4a4a4a;
-  --navbar-background-color: #f5f5f5;
-}
-
-[data-theme="dark"] {
-  --primary-color: #00d1b2;
-  --navbar-text-color: #ffffff;
-  --navbar-background-color: #363636;
 }
 </style>
